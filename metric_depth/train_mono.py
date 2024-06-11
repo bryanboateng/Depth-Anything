@@ -132,6 +132,7 @@ if __name__ == '__main__':
         shared_dict = None
     config.shared_dict = shared_dict
 
+    config.bs = 1
     config.batch_size = config.bs
     config.mode = 'train'
     if config.root != "." and not os.path.isdir(config.root):
@@ -164,6 +165,7 @@ if __name__ == '__main__':
     ngpus_per_node = torch.cuda.device_count()
     config.num_workers = config.workers
     config.ngpus_per_node = ngpus_per_node
+
     print("Config:")
     pprint(config)
     if config.distributed:

@@ -49,6 +49,7 @@ from .ibims import get_ibims_loader
 from .sun_rgbd_loader import get_sunrgbd_loader
 from .vkitti import get_vkitti_loader
 from .vkitti2 import get_vkitti2_loader
+from .carla import get_carla_loader
 
 from .preprocess import CropParams, get_white_border, get_black_border
 
@@ -80,6 +81,10 @@ class DepthDataLoader(object):
         """
 
         self.config = config
+
+        if config.dataset == 'carla':
+            self.data = get_carla_loader(config, batch_size=1, num_workers=1)
+            return
 
         if config.dataset == 'ibims':
             self.data = get_ibims_loader(config, batch_size=1, num_workers=1)

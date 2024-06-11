@@ -47,6 +47,17 @@ COMMON_CONFIG = {
 }
 
 DATASETS_CONFIG = {
+    "carla": {
+        "dataset": "carla",
+        "carla_root": os.path.join(HOME_DIR, "carla"),
+        "eigen_crop": False,
+        "garg_crop": True,
+        "do_kb_crop": True,
+        "min_depth_eval": 1e-3,
+        "max_depth_eval": 80,
+        "min_depth": 1e-3,
+        "max_depth": 80
+    },
     "kitti": {
         "dataset": "kitti",
         "min_depth": 0.001,
@@ -375,7 +386,7 @@ def get_config(model_name, mode='train', dataset=None, **overwrite_kwargs):
     check_choices("Model", model_name, ["zoedepth", "zoedepth_nk"])
     check_choices("Mode", mode, ["train", "infer", "eval"])
     if mode == "train":
-        check_choices("Dataset", dataset, ["nyu", "kitti", "mix", None])
+        check_choices("Dataset", dataset, ["carla", "nyu", "kitti", "mix", None])
 
     config = flatten({**COMMON_CONFIG, **COMMON_TRAINING_CONFIG})
     config = update_model_config(config, mode, model_name)

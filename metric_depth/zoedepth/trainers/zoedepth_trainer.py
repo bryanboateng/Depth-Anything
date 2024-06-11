@@ -52,16 +52,20 @@ class Trainer(BaseTrainer):
         batch["depth"].shape : batch_size, 1, h, w
         """
 
+        print(batch.keys())
+
         images, depths_gt = batch['image'].to(
             self.device), batch['depth'].to(self.device)
         dataset = batch['dataset'][0]
 
         b, c, h, w = images.size()
-        mask = batch["mask"].to(self.device).to(torch.bool)
+        mask = None # batch["mask"].to(self.device).to(torch.bool)
 
         losses = {}
 
         with amp.autocast(enabled=self.config.use_amp):
+
+            print(images.type(), images.shape, depths_gt.shape)
 
             output = self.model(images)
             pred_depths = output['metric_depth']
